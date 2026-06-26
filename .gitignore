@@ -1,0 +1,10 @@
+# 白名单：只追踪顶层纪律 markdown 文档，忽略其他一切
+*
+!/*.md
+!/.gitignore
+
+# 显式排除（双保险）
+.DS_Store
+*.bak
+*.backup*
+*.log

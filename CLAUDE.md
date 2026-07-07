@@ -115,12 +115,29 @@
 
 ## 11. 工作空间
 
-- 后续创建、克隆、下载、重构或完整产出的项目，统一放在 `~/projects/<project-name>/`。
-- 不要在 `~` 家目录根部新建项目目录。
-- 临时探索可用 `/tmp`，但可保留成果必须迁移到 `~/projects/`。
-- 用户未指定路径时，默认用 `~/projects/<清晰项目名>/`。
+当前只有两个主工作区：
+
+- **`~/projects/xz/`** —— 写作与知识库（用 `AGENTS.md` 约束）。
+  - `00_输入区/`：收件箱、素材、附件
+  - `01_草稿箱/`：正在写的文章项目
+  - `02_知识区/`：读书笔记、自我认知
+  - `03_归档/`：已发布文章、历史随想
+
+- **`~/projects/build/`** —— 所有“做/建”出来的东西（用 `build/AGENTS.md` 约束）。
+  - `skills/`：skill、agent tool
+  - `products/`：工具、服务、产品
+  - `content-ip/`：课程、内容产品
+  - `sandbox/`：实验、原型
+
+规则：
+
+- 不要在 `~` 根或 `~/projects/` 根新建项目目录；项目必须下沉到 `xz/` 或 `build/` 子树。
+- 新建任何项目 / skill 目录前，先声明完整目标路径并确认落在 `xz/` 或 `build/` 下；不在则暂停问用户（硬暂停，见第 15 节）。
+- 临时探索可用 `/tmp`，但可保留成果必须迁移到 `~/projects/xz/` 或 `~/projects/build/`。
+- 用户未指定路径时，先判断是“写/想”还是“做/建”，再决定放 `xz/` 还是 `build/`。
 - 项目根目录只放代码、配置、文档和脚本。日志、缓存、运行时数据、导出物、会话产物不要进 git，除非用户明确需要。
 - 新增文件入 git 前先检查 `.gitignore`。
+- `/Users/yang/code/` 和 `/Users/yang/xz/` 已清空/删除，不再使用。
 
 ## 12. 事实查证
 
@@ -132,7 +149,7 @@
 
 ## 13. 记忆
 
-**默认记忆工具：gbrain**（本地 PGLite，轻量，已配置为 MCP server）。不再用 Nowledge Mem（nmem 太重、需额外服务）。
+**默认记忆工具：gbrain**（本地 postgres 引擎：brew postgresql@17 + pgvector，已配置为 stdio MCP server；embedding 用 SiliconFlow bge-m3，chat 用 deepseek）。不再用 Nowledge Mem（nmem 太重、需额外服务）。部署细节见脑里 `gbrain-postgres-deploy-ops`，记忆浏览器 http://localhost:3132 。
 
 **何时保存**：
 - 用户明确说“保存”“记住”“沉淀”“持久化”时，必须保存。
@@ -174,6 +191,7 @@
 - 给项目新增依赖。
 - 跨无关模块做大范围重构。
 - 创建会对外发布、且包含当前事实判断的内容，但尚未验证事实。
+- 在 `~` 根、`~/projects/` 根或非 `xz/build` 位置新建项目 / skill 目录。
 
 ## 16. 新项目 / GitHub 接入
 
@@ -185,3 +203,6 @@
 4. **明确告诉用户**：装了哪层、怎么用、踩什么坑。
 5. **别把"磁盘有文件 / npx 能跑 / 别的工具（Codex）装过"当"Claude Code 已装可用"**——Claude Code 跟 Codex 等是独立系统，不共用 skill/plugin。
 6. 维护权衡：能用官方维护的（plugin/skill 官方源）就别自造轮子，自造只做官方没有的定制薄层。
+# graphify
+- **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
+When the user types `/graphify`, use the installed graphify skill or instructions before doing anything else.
